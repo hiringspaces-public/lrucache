@@ -77,6 +77,15 @@ public class LRUCache<TKey, TValue> : ICache<TKey, TValue>
         _map[key] = node;
     }
 
+    public void Remove(TKey key)
+    {
+        if (!_map.TryGetValue(key, out Node<TKey, TValue>? node))
+            return;
+
+        Detach(node);
+        _map.Remove(key);
+    }
+
     // ── Private helpers ────────────────────────────────────────────────────
 
     private void MoveToFront(Node<TKey, TValue> node)

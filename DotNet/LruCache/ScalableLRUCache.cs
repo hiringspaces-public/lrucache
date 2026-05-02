@@ -9,6 +9,8 @@ public class ScalableLRUCache<TKey, TValue> where TKey : notnull
     private readonly object _resizeLock = new();
     private int _capacityPerStripe;
 
+    public int Count => throw new NotImplementedException();
+
     public ScalableLRUCache(int totalCapacity, int stripeCount = 4)
     {
         throw new NotImplementedException();
