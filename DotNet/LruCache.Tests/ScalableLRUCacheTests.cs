@@ -71,6 +71,39 @@ public class ScalableLRUCacheTests
         Assert.Empty(errors);
     }
 
+    [Fact(DisplayName = "Put and Get work correctly after resize")]
+    public void Resize_ThenPutGet_WorksCorrectly()
+    {
+        var cache = new ScalableLRUCache<int, int>(totalCapacity: 4, stripeCount: 2);
+        cache.Put(1, 10);
+        cache.Put(2, 20);
+
+        cache.Resize(newTotalCapacity: 8, newStripeCount: 4);
+
+        cache.Put(3, 30);
+        cache.Put(4, 40);
+
+        Assert.True(cache.TryGet(1, out var v1) && v1 == 10);
+        Assert.True(cache.TryGet(2, out var v2) && v2 == 20);
+        Assert.True(cache.TryGet(3, out var v3) && v3 == 30);
+        Assert.True(cache.TryGet(4, out var v4) && v4 == 40);
+    }
+
+    [Fact(DisplayName = "Count never exceeds total capacity after repeated resize")]
+    public void RepeatedResize_CountNeverExceedsCapacity()
+    {
+        var cache = new ScalableLRUCache<int, int>(totalCapacity: 8, stripeCount: 2);
+        for (int i = 0; i < 8; i++) cache.Put(i, i);
+
+        cache.Resize(newTotalCapacity: 4, newStripeCount: 2);
+        for (int i = 0; i < 10; i++) cache.Put(i, i);
+        Assert.True(cache.Count <= 4, $"After shrink: Count {cache.Count} > 4");
+
+        cache.Resize(newTotalCapacity: 12, newStripeCount: 4);
+        for (int i = 0; i < 20; i++) cache.Put(i, i);
+        Assert.True(cache.Count <= 12, $"After grow: Count {cache.Count} > 12");
+    }
+
     [Fact(DisplayName = "Resize while under concurrent load does not lose all keys")]
     public void Resize_UnderConcurrentLoad_CacheRemainsUsable()
     {

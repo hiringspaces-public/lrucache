@@ -127,4 +127,33 @@ public class LFUCacheTests
 
         Assert.False(cache.TryGet(99, out _));
     }
+
+
+    [Fact(DisplayName = "Eviction order is approximately maintained under concurrent access")]
+    public void ConcurrentEviction_HotKeysSurvive()
+    {
+        var cache = new LFUCache<int, int>(10);
+        for (int i = 0; i < 10; i++) cache.Put(i, i);
+
+        // Continuously access keys 0-4 (hot) while flooding with new keys (cold)
+        var hotReader = Task.Run(() =>
+        {
+            for (int i = 0; i < 5000; i++)
+                cache.TryGet(i % 5, out _);
+        });
+
+        var coldWriter = Task.Run(() =>
+        {
+            for (int i = 10; i < 2000; i++)
+                cache.Put(i, i);
+        });
+
+        Task.WaitAll(hotReader, coldWriter);
+
+        // After flooding, at least some hot keys should survive
+        int survived = Enumerable.Range(0, 5).Count(k => cache.TryGet(k, out _));
+        Assert.True(survived > 0,
+            "Expected at least some hot keys to survive eviction flood");
+    }
+
 }
