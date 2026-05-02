@@ -5,7 +5,7 @@ namespace LRUCache;
 /// </summary>
 /// <typeparam name="TKey">The type of cache keys.</typeparam>
 /// <typeparam name="TValue">The type of cache values.</typeparam>
-public interface ILRUCache<TKey, TValue>
+public interface ICache<TKey, TValue>
 {
     /// <summary>
     /// Returns the number of entries currently in the cache.

@@ -10,7 +10,7 @@ namespace LRUCache;
 /// </summary>
 /// <typeparam name="TKey">The type of cache keys.</typeparam>
 /// <typeparam name="TValue">The type of cache values.</typeparam>
-public class LRUCache<TKey, TValue> : ILRUCache<TKey, TValue>
+public class LRUCache<TKey, TValue> : ICache<TKey, TValue>
     where TKey : notnull
 {
     private readonly int _capacity;
