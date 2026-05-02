@@ -3,19 +3,14 @@
   "image": "mcr.microsoft.com/devcontainers/java:dev-21-jdk-bookworm",
 
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/Java",
-
-  "customizations": {
+"customizations": {
     "vscode": {
       "extensions": [
         "vscjava.vscode-java-pack",
         "vscjava.vscode-gradle",
-        "ms-azuretools.vscode-docker",
-        "pomdtr.excalidraw-editor"
+        "hediet.vscode-drawio"
       ],
       "settings": {
-        "remote.extensionKind": {
-          "pomdtr.excalidraw-editor": ["ui"]
-        },
         "editor.formatOnSave": true,
         "java.configuration.updateBuildConfiguration": "automatic"
       }
