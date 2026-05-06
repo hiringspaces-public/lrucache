@@ -1,9 +1,8 @@
 {
   "name": "LruCache - Java",
   "image": "mcr.microsoft.com/devcontainers/java:dev-21-jdk-bookworm",
-
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/Java",
-"customizations": {
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "customizations": {
     "vscode": {
       "extensions": [
         "vscjava.vscode-java-pack",
@@ -12,14 +11,37 @@
       ],
       "settings": {
         "editor.formatOnSave": true,
-        "java.configuration.updateBuildConfiguration": "automatic"
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "java.import.exclusions": [
+          "**/node_modules/**",
+          "**/.metadata/**",
+          "**/archetype-resources/**",
+          "**/META-INF/maven/**",
+          "DotNet/**"
+        ],
+        "files.exclude": {
+          "DotNet": true,
+          "HelloMicrosoft.sln": true
+        },
+        "search.exclude": {
+          "DotNet": true,
+          "HelloMicrosoft.sln": true
+        },
+        "files.watcherExclude": {
+          "**/DotNet/**": true,
+          "**/.devcontainer/**": true
+        },
+        "git.showActionButton": {
+          "commit": true,
+          "publish": false,
+          "sync": false
+        },
+        "scm.graph.badges": "off",
+        "scm.showHistoryGraph": false
       }
     }
   },
-
   "onCreateCommand": "sudo apt-get update && sudo apt-get install -y maven && mvn install -Dmaven.test.failure.ignore=true -f /workspaces/${localWorkspaceFolderBasename}/Java/pom.xml",
-
   "postCreateCommand": "mvn test -Dmaven.test.failure.ignore=true -f /workspaces/${localWorkspaceFolderBasename}/Java/pom.xml",
-
   "remoteUser": "vscode"
 }

@@ -1,7 +1,7 @@
 {
   "name": "LruCache - .NET 8",
   "image": "mcr.microsoft.com/devcontainers/dotnet:8.0",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}/DotNet",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -17,7 +17,24 @@
         "editor.formatOnSave": true,
         "[csharp]": {
           "editor.defaultFormatter": "ms-dotnettools.csharp"
-        }
+        },
+        "files.exclude": {
+          "Java": true
+        },
+        "search.exclude": {
+          "Java": true
+        },
+        "files.watcherExclude": {
+          "**/Java/**": true,
+          "**/.devcontainer/**": true
+        },
+        "git.showActionButton": {
+          "commit": true,
+          "publish": false,
+          "sync": false
+        },
+        "scm.graph.badges": "off",
+        "scm.showHistoryGraph": false
       }
     }
   },
