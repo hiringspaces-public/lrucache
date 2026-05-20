@@ -4,7 +4,7 @@ You have been given a generic LRU Cache implementation. It compiles. It mostly w
 
 Your job: find them, explain them, fix them, and prove the fix with tests.
 
-AI tools are allowed and encouraged. How you use them is part of what is being assessed.
+AI tools are allowed and encouraged. Use inbuilt whiteboard for discussions
 
 ---
 
@@ -23,15 +23,19 @@ AI tools are allowed and encouraged. How you use them is part of what is being a
 ## Your Level
 
 **Junior**
+
 Read `LRUCache.*`. Understand the structure what are the sentinel head and tail nodes doing and why do they exist? Trace a `Put` followed by a `Get` and describe the list state at each step. Find the bug, explain what invariant it violates, fix it, and write a test that fails before your fix and passes after.
 
 **Mid**
-Find both bugs. Explain each in terms of observable behaviour not just where the bad line is. Fix both with targeted tests. Then implement `TryGet` and `Put` in `LFUCache.cs` in O(1).
+
+Find both bugs. Explain each in terms of observable behaviour not just where the bad line is. Fix both with targeted tests. Explain how cache interact at higher loads and make thread safe
 
 **Senior**
-Fix both bugs and implement the LFU cache as above.
+
+Fix both bugs and fix concurrancy issues and implement the LFU cache as above.
 
 **Staff**
+
 Complete everything above. Then implement `TryGet`, `Put`, and `Resize` in `ScalableLRUCache.cs`  a striped LRU where the keyspace is divided into N stripes, each with its own lock and LRU list.
 
 ---
